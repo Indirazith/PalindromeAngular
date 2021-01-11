@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.palindromeService.getData().subscribe(data => {
       this.values = data;
-      console.log(data);
     });
 
   }
@@ -99,13 +98,31 @@ export class AppComponent implements OnInit {
 
   //check for palindrome and to insert the value
   checkAndInsert(value: string) {
-    let x = this.values.find(e => e.palindrome);
-    console.log(x?.palindrome);
-    let comparision = (x?.palindrome.localeCompare(value.toLocaleLowerCase()));
-    if (comparision == 0) {
-      console.log("alraedy in list")
-      this.errorMessage = "The input is already present in the list";
-      this.hidden = true;
+    if (this.values.length != 0) {
+      let x = this.values.filter((x) => x.palindrome.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+      if (x.length != 0) {
+        this.errorMessage = "The input is already present in the list";
+        this.hidden = true;
+      } else {
+        this.hidden = false;
+        this.palindromeService.checkForPalindrome(value).subscribe(data => {
+          this.isPalindrom = data;
+          if (this.isPalindrom == true) {
+            this.palindromeService.insert(value);
+            this.successMessageBoolean = false;
+            setTimeout(() => {
+              this.successMessageBoolean = true;
+            }, 2000);
+            this.loadData();
+            (<HTMLFormElement>document.getElementById("palindromeForm")).reset();
+            this.palindromeService.setLimit().subscribe();
+          }
+          else {
+            this.errorMessage = "The input is not a palindrome";
+            this.hidden = true;
+          }
+        });
+      }
     } else {
       this.hidden = false;
       this.palindromeService.checkForPalindrome(value).subscribe(data => {
@@ -120,10 +137,7 @@ export class AppComponent implements OnInit {
           (<HTMLFormElement>document.getElementById("palindromeForm")).reset();
           this.palindromeService.setLimit().subscribe();
         }
-        else {
-          this.errorMessage = "The input is not a palindrome";
-          this.hidden = true;
-        }
+
       });
     }
   }

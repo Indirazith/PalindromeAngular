@@ -23,7 +23,9 @@
       <button type="submit" id="submit-btn" [disabled]="submitButtonDisable" class="btn btn-primary">Submit</button>
     </div>
   </form>
-
+  <div *ngIf="values.length === 0" class="bg-secondary text-white" id="noDataInfo">
+    <p>*No data in the table, submit new palindrome*</p>
+  </div>
   <div id="table-component">
     <table id="main-table" class="table table-striped">
       <thead id="thead">
@@ -44,5 +46,4 @@
       More</button>
   </div>
 </div>
-
 <router-outlet></router-outlet>
