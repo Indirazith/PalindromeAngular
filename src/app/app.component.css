@@ -1,0 +1,59 @@
+
+#table-component{
+    width : auto;
+    height: 150px;
+    margin-left : 75px;
+}
+
+#palindromeForm{
+    margin-top : 100px;
+    margin-left: 75px;
+}
+#body{
+  display: inline-block;
+  margin-left : 300px;
+  margin-top : 150px;
+  width: 50%;
+  padding: 10px;
+
+}
+
+#submit-btn{
+    margin-left : 135px;
+} 
+
+#palindrome-input-id{
+    margin-left : 20px;
+}
+
+table {
+    width: 100%;
+}
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+
+
+tbody {
+    height: 110px;
+    overflow-y: auto;
+    border: 1px solid black;
+}
+
+thead {
+    border: 1px solid black;
+}
+
+
+tbody td, thead th {
+    width : 100%;
+    float: left;
+}
+

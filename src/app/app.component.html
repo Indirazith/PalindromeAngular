@@ -1,0 +1,48 @@
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<div id="body">
+  <h3><i>Palindrome Application</i></h3>
+  <form #Form='ngForm' id="palindromeForm" (submit)='checkAndInsert(inputText.value)'>
+    <div id="palindrome-component" class="form-group">
+      <label>Input the palindrome : </label>
+      <input id="palindrome-input-id" autocomplete="false" #inputText="ngModel" ngModel
+        (keyup)="checkForValidation(inputText.value)" name="palindrome" type="text" maxlength="100"
+        list="dynmicUserIds">
+      <datalist id="dynmicUserIds">
+        <option *ngFor="let item of values" [value]="item.palindrome"></option>
+      </datalist>
+    </div>
+    <div *ngIf="hidden">
+      <small id="error-message" class="text-danger">{{errorMessage}}</small>
+    </div>
+    <small id="sucess-message" class="text-success" [hidden]="successMessageBoolean">Palidnrome inserted !</small>
+
+    <div class="form-group">
+      <button type="submit" id="submit-btn" [disabled]="submitButtonDisable" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+
+  <div id="table-component">
+    <table id="main-table" class="table table-striped">
+      <thead id="thead">
+        <tr>
+          <th scope="col">
+            List of palindrome
+            <b></b> <i class="fa fa-fw fa-sort" (click)="performSort()"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr *ngFor="let value of values " scope="row">
+          {{value.palindrome}}
+        </tr>
+      </tbody>
+    </table>
+    <button id="load-more" class="btn btn-light float-right" (click)="loadMoreData()" [hidden]="hideLoadMore">Load
+      More</button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
